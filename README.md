@@ -33,3 +33,18 @@ npx prisma db seed
 npm run dev
 ```
 7. Open `http://localhost:3000` in browser
+
+## Docker
+1. Prepare Docker builder
+```sh
+docker buildx create --name mybuilder --use
+docker buildx inspect --bootstrap
+```
+2. Build
+```sh
+docker buildx build --platform linux/amd64 -t examtopixlite --load .
+```
+3. Run
+```sh
+docker run -d -p 3000:3000 --name examtopixlite examtopixlite
+```
