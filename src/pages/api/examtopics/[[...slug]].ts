@@ -25,7 +25,7 @@ export default async function handler(
   const settingsData: any = await prisma.settings.findUnique({
     where: { id: SettingsId.SCRAPER }
   });
-  const settings: AdminScraperSettings = settingsData?.value;
+  const settings: AdminScraperSettings = JSON.parse(settingsData?.value);
   if (settings.whitelistPaths.some(e => match[1]?.startsWith(e))) {
     // Bypass check
   } else if (settings?.access === "public") {
