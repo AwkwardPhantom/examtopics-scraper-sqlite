@@ -4,14 +4,14 @@ Scrape exam questions from ExamTopics discussions page.
 ## Getting Started
 1. Clone this repo
 ```sh
-git clone https://github.com/zqtay/examtopics-scraper.git
-cd examtopics-scraper
+git clone https://github.com/AwkwardPhantom/examtopics-scraper-sqlite.git
+cd examtopics-scraper-sqlite
 ```
 2. Install dependencies
 ```sh
 npm ci
 ```
-3. Add `.env` file.
+3. (no longer needed in the SQLite version) Add `.env` file.
 ```sh
 NEXTAUTH_ADMIN_USER=admin
 NEXTAUTH_ADMIN_PASSWORD=password
