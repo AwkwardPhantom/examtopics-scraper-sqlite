@@ -7,11 +7,11 @@ const tables = ["Settings"];
 const settings = [
   {
     name: "scraper",
-    value: { 
+    value: JSON.stringify({ 
       access: "public",
       whitelistPaths: ["assets"],
       allowedRoles: ["admin"],
-    },
+    }),
   },
 ];
 
@@ -27,12 +27,17 @@ async function main() {
     });
 }
 
-async function clearData(tx: Prisma.TransactionClient) {
+async function clearData(tx: Prisma.TransactionClient) { // SQLite
   for (const table of tables) {
     // Clear table
-    const query = `TRUNCATE TABLE "public"."${table}" RESTART IDENTITY;`;
+    const query = `DELETE FROM "${table}";`; // Change TRUNCATE to DELETE
     await tx.$queryRaw(Prisma.sql`${Prisma.raw(query)}`);
     console.log(query);
+    
+    // Reset auto-incrementing IDs (since SQLite does not support TRUNCATE's behavior)
+    const resetQuery = `DELETE FROM sqlite_sequence WHERE name='${table}';`;
+    await tx.$queryRaw(Prisma.sql`${Prisma.raw(resetQuery)}`);
+    console.log(resetQuery);
   }
 }
 
